@@ -142,10 +142,10 @@ export default function HeroImage() {
   
   return (
     <HeroImageContainer>
-      <ImageHalf imageUrl="/residentialroofingimage.jpg">
+      <ImageHalf imageUrl="/images/residentialroofingimage.jpg">
         <PropertyTypeLabel data-tooltip={translations.residentialTooltip}>{translations.residentialLabel}</PropertyTypeLabel>
       </ImageHalf>
-      <ImageHalf imageUrl="/commercialroofingimage.jpeg">
+      <ImageHalf imageUrl="/images/commercialroofingimage.jpeg">
         <PropertyTypeLabel data-tooltip={translations.commercialTooltip}>{translations.commercialLabel}</PropertyTypeLabel>
       </ImageHalf>
       
