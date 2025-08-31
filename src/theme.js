@@ -50,5 +50,13 @@ export const theme = {
     fast: 'all 0.2s ease',
     medium: 'all 0.3s ease',
     slow: 'all 0.5s ease',
+  },
+  radii: {
+    none: '0',
+    sm: '4px',
+    md: '8px',
+    lg: '12px',
+    xl: '20px',
+    pill: '9999px'
   }
 };

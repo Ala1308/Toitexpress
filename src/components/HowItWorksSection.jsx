@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import { theme } from '../theme';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 
@@ -57,6 +57,12 @@ const Step = styled.div`
   }
 `;
 
+const glow = keyframes`
+  0% { box-shadow: 0 0 0 rgba(230,126,34,0); }
+  50% { box-shadow: 0 0 0 10px rgba(230,126,34,0.25); }
+  100% { box-shadow: 0 0 0 rgba(230,126,34,0); }
+`;
+
 const StepNumber = styled.div`
   width: 80px;
   height: 80px;
@@ -69,6 +75,7 @@ const StepNumber = styled.div`
   justify-content: center;
   margin-bottom: 20px;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  ${props => props.active && css`animation: ${glow} 1.6s ease-in-out infinite; background: ${theme.colors.accent}; color: ${theme.colors.white};`}
 `;
 
 const StepTitle = styled.h3`
@@ -85,6 +92,14 @@ const StepDescription = styled.p`
 
 export default function HowItWorksSection() {
   const { translations } = useLanguage();
+  const [active, setActive] = useState(1);
+  
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActive(prev => (prev % 3) + 1);
+    }, 1800);
+    return () => clearInterval(id);
+  }, []);
   
   return (
     <SectionContainer>
@@ -93,19 +108,19 @@ export default function HowItWorksSection() {
         
         <StepsContainer>
           <Step>
-            <StepNumber>{translations.step1Number}</StepNumber>
+            <StepNumber active={active === 1}>{translations.step1Number}</StepNumber>
             <StepTitle>{translations.step1Title}</StepTitle>
             <StepDescription>{translations.step1Description}</StepDescription>
           </Step>
           
           <Step>
-            <StepNumber>{translations.step2Number}</StepNumber>
+            <StepNumber active={active === 2}>{translations.step2Number}</StepNumber>
             <StepTitle>{translations.step2Title}</StepTitle>
             <StepDescription>{translations.step2Description}</StepDescription>
           </Step>
           
           <Step>
-            <StepNumber>{translations.step3Number}</StepNumber>
+            <StepNumber active={active === 3}>{translations.step3Number}</StepNumber>
             <StepTitle>{translations.step3Title}</StepTitle>
             <StepDescription>{translations.step3Description}</StepDescription>
           </Step>

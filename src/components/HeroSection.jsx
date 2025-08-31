@@ -3,6 +3,8 @@ import styled, { keyframes } from 'styled-components';
 import HeroImage from './HeroImage';
 
 import LeadForm from './LeadForm';
+import Button from './ui/Button';
+import Container from './ui/Container';
 import { theme } from '../theme';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 
@@ -30,11 +32,7 @@ const HeroContainer = styled.section`
   padding-bottom: 60px;
 `;
 
-const HeroContent = styled.div`
-  max-width: 1140px;
-  width: 100%;
-  padding: 0 20px;
-  margin: 0 auto;
+const HeroContent = styled(Container)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -158,56 +156,10 @@ const Footer = styled.footer`
   max-width: 800px;
 `;
 
-const GetQuotesButton = styled.button`
-  background: ${theme.colors.primary};
-  color: ${theme.colors.white};
-  font-size: 1.4rem;
-  font-weight: 700;
-  padding: 16px 40px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+const AnimatedCTA = styled(Button)`
   margin: 30px 0;
-  box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: relative;
-  overflow: hidden;
   animation: ${pulse} 2s infinite ease-in-out;
-  font-family: ${theme.fonts.heading};
-  
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      to right,
-      transparent 0%,
-      rgba(255, 255, 255, 0.2) 50%,
-      transparent 100%
-    );
-    transition: left 0.7s ease;
-  }
-  
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 24px rgba(52, 152, 219, 0.4);
-    background: ${theme.colors.accent};
-    
-    &:before {
-      left: 100%;
-    }
-  }
-  
-  svg {
-    width: 24px;
-    height: 24px;
-  }
+  svg { width: 24px; height: 24px; }
 `;
 
 export default function HeroSection() {
@@ -216,6 +168,9 @@ export default function HeroSection() {
   
   const handleShowForm = () => {
     setShowForm(true);
+    try {
+      window.dispatchEvent(new CustomEvent('inlineFormShown'));
+    } catch {}
     setTimeout(() => {
       document.getElementById('lead-form').scrollIntoView({ behavior: 'smooth' });
     }, 100);
@@ -247,14 +202,14 @@ export default function HeroSection() {
         </MicroTrustBar>
         
         {!showForm ? (
-          <GetQuotesButton onClick={handleShowForm} data-gtm="cta_hero_button">
+          <AnimatedCTA size="xl" onClick={handleShowForm} data-gtm="cta_hero_button" pill>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="7 10 12 15 17 10"></polyline>
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
             {translations.getQuotes}
-          </GetQuotesButton>
+          </AnimatedCTA>
         ) : (
           <HeroContentGrid>
             <HeroTextContent>
@@ -264,9 +219,9 @@ export default function HeroSection() {
           </HeroContentGrid>
         )}
         
-        <Footer>
-          {translations.footnote}
-        </Footer>
+        {translations.footnote ? (
+          <Footer>{translations.footnote}</Footer>
+        ) : null}
       </HeroContent>
     </HeroContainer>
   );

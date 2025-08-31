@@ -51,19 +51,19 @@ const en = {
   postalCodePlaceholder: 'H2X 1Y6',
   
   // Project Types
-  residential: 'Residential',
+  residential: 'Résidentiel',
   commercial: 'Commercial',
-  residentialRepair: 'Residential – Repair',
-  residentialReplacement: 'Residential – Replacement',
-  roofRepair: 'Roof Repair (most common)',
-  fullReplacement: 'Full Roof Replacement',
-  newInstallation: 'New Roof Installation',
-  roofInspection: 'Roof Inspection',
-  commercialFlat: 'Commercial – Flat Roof',
-  commercialSloped: 'Commercial – Sloped Roof',
-  commercialRepair: 'Commercial – Repair/Maintenance',
-  notSure: 'Not Sure',
-  helpText: 'Residential or Commercial – pitched shingles, flat membrane, metal, & more.',
+  residentialRepair: 'Résidentiel – Réparation',
+  residentialReplacement: 'Résidentiel – Remplacement',
+  roofRepair: 'Réparation de toit (le plus courant)',
+  fullReplacement: 'Remplacement complet de toit',
+  newInstallation: 'Nouvelle installation de toit',
+  roofInspection: 'Inspection de toit',
+  commercialFlat: 'Commercial – Toit plat',
+  commercialSloped: 'Commercial – Toit en pente',
+  commercialRepair: 'Commercial – Réparation/Entretien',
+  notSure: 'Je ne sais pas',
+  helpText: 'Résidentiel ou commercial — bardeaux en pente, membrane, métal, et plus.',
   
   // Success Message
   thankYou: 'Thank you! Your request for quotes has been submitted. You will receive 3 quotes within 24 hours.',
@@ -78,7 +78,7 @@ const en = {
   commercialTooltip: 'TPO/EPDM membrane, flat roofs',
   
   // Image Overlay
-  imageOverlay: 'Montreal roofing experts • Since 2016',
+  imageOverlay: 'Montreal roofing experts',
   
   // Language Selector
   language: 'FR',
@@ -99,7 +99,7 @@ const en = {
   peaceOfMindValue: '100%',
   peaceOfMindText: 'Licensed, insured, and warranty-backed',
   noQuotesPromise: '<strong>No quotes in 24h?</strong> We\'ll give you a <strong>$50 gift card</strong>—no strings attached.',
-  savingsFootnote: '* Based on 56 full replacements, Jan–Mar 2025.',
+  savingsFootnote: '',
   
   // How It Works Section
   howItWorksTitle: 'How It Works',
@@ -135,7 +135,7 @@ const fr = {
   // Hero Section
   headline1: '3 Devis de Toiture.',
   headline2: '24 Heures.',
-  headline3: 'Zéro Obligation.',
+  headline3: '',
   headlineAddOn: 'Pour Maisons & Entreprises à Montréal.',
   subheadline: 'Parlez-nous de votre toit une fois—obtenez trois pros certifiés, assurés — résidentiel & commercial en compétition pour votre projet dès demain.',
   
@@ -196,7 +196,7 @@ const fr = {
   thankYou: 'Merci! Votre demande de devis a été soumise. Vous recevrez 3 devis dans les 24 heures.',
   
   // Footer
-  footnote: '* Basé sur 217 projets de toiture complète comparés Jan–Mar 2025.',
+  footnote: '',
   
   // Property Types
   residentialLabel: 'Résidentiel',
@@ -205,7 +205,7 @@ const fr = {
   commercialTooltip: 'Membrane TPO/EPDM, toits plats',
   
   // Image Overlay
-  imageOverlay: 'Experts en toiture à Montréal • Depuis 2016',
+  imageOverlay: 'Experts en toiture à Montréal',
   
   // Language Selector
   language: 'EN',
@@ -226,7 +226,7 @@ const fr = {
   peaceOfMindValue: '100%',
   peaceOfMindText: 'Certifiés, assurés et garantis',
   noQuotesPromise: '<strong>Pas de devis en 24h?</strong> Nous vous offrirons une <strong>carte cadeau de 50$</strong>—sans condition.',
-  savingsFootnote: '* Basé sur 56 remplacements complets, jan–mars 2025.',
+  savingsFootnote: '',
   
   // How It Works Section
   howItWorksTitle: 'Comment Ça Fonctionne',
@@ -271,6 +271,10 @@ export const LanguageProvider = ({ children }) => {
   // Update localStorage when language changes
   useEffect(() => {
     localStorage.setItem('language', language);
+    // Keep <html lang> in sync for SEO/a11y
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = language;
+    }
   }, [language]);
   
   // Toggle language between 'en' and 'fr'

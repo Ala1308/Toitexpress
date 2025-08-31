@@ -120,7 +120,7 @@ export default function CredibilitySection() {
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
             </BadgeIcon>
-            <BadgeLabel>Plus de 200 avis 5 étoiles</BadgeLabel>
+            <BadgeLabel>100% des clients satisfaits</BadgeLabel>
           </Badge>
         </BadgesContainer>
         

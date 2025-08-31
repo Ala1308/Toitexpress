@@ -34,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 700;
     color: ${theme.colors.secondary};
   }
+  p { line-height: 1.65; }
   a {
     color: ${theme.colors.primary};
     text-decoration: none;
@@ -41,6 +42,9 @@ const GlobalStyle = createGlobalStyle`
     &:hover {
       color: ${theme.colors.accent};
     }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *:before, *:after { animation: none !important; transition: none !important; }
   }
 `;
 

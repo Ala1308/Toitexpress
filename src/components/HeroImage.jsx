@@ -23,6 +23,7 @@ const HeroImageContainer = styled.div`
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0,0,0,0.3);
   animation: ${fadeIn} 1s ease-out;
+  isolation: isolate;
   
   @media (max-width: 768px) {
     height: 420px;

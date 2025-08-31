@@ -220,6 +220,12 @@ const BenefitValue = styled.div`
   }
 `;
 
+const highlightPulse = keyframes`
+  0% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.0); }
+  50% { box-shadow: 0 0 0 12px rgba(230, 126, 34, 0.15); }
+  100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.0); }
+`;
+
 const GuaranteeBox = styled.div`
   background: linear-gradient(to right, ${theme.colors.bgLight}, ${theme.colors.bgMedium}, ${theme.colors.bgLight});
   padding: 25px;
@@ -232,6 +238,8 @@ const GuaranteeBox = styled.div`
   line-height: 1.5;
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  animation: ${highlightPulse} 2.2s ease-in-out infinite;
   
   strong {
     color: ${theme.colors.primary};
@@ -294,18 +302,16 @@ export default function BenefitsSection() {
               <><strong>Pas de devis en 24h?</strong> Nous vous offrirons une <strong>carte cadeau de 50$</strong>—sans condition.</>
             )}
           </GuaranteeBox>
-          <p style={{ 
-            fontSize: '0.95rem', 
-            color: theme.colors.textMedium, 
-            marginTop: '20px',
-            fontStyle: 'italic'
-          }}>
-            {translations.savingsFootnote ? (
+          {translations.savingsFootnote ? (
+            <p style={{ 
+              fontSize: '0.95rem', 
+              color: theme.colors.textMedium, 
+              marginTop: '20px',
+              fontStyle: 'italic'
+            }}>
               <span dangerouslySetInnerHTML={{ __html: translations.savingsFootnote }} />
-            ) : (
-              <>* Based on 56 full replacements, Jan–Mar 2025.</>
-            )}
-          </p>
+            </p>
+          ) : null}
         </div>
       </SectionInner>
     </SectionContainer>

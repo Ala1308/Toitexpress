@@ -11,25 +11,25 @@ const fadeIn = keyframes`
 
 const FormContainer = styled.div`
   background: #fff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: ${props => props.isPopup ? 'none' : '0 15px 40px rgba(0, 0, 0, 0.15)'};
-  max-width: 500px;
+  border-radius: ${theme.borderRadius.lg};
+  padding: 28px;
+  box-shadow: ${props => props.isPopup ? 'none' : theme.shadows.lg};
+  max-width: 520px;
   width: 100%;
   margin: 0 auto;
   font-family: ${theme.fonts.body};
   animation: ${fadeIn} 0.6s ease-out;
   position: relative;
   overflow: hidden;
+  border: 1px solid #e7e9ee;
   
-  &:before {
+  &:after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 6px;
-    height: 100%;
-    background: ${theme.colors.primary};
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent 40%);
   }
 `;
 
@@ -66,9 +66,9 @@ const Label = styled.label`
 
 const Input = styled.input`
   width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 14px 14px;
+  border: 1px solid #dfe3ea;
+  border-radius: ${theme.borderRadius.md};
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.3s ease;
@@ -76,20 +76,20 @@ const Input = styled.input`
   &:focus {
     outline: none;
     border-color: ${theme.colors.primary};
-    box-shadow: 0 0 0 3px ${theme.colors.primary}22;
+    box-shadow: 0 0 0 4px ${theme.colors.primary}22;
   }
   
   &.error {
     border-color: #e74c3c;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+    box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.12);
   }
 `;
 
 const Select = styled.select`
   width: 100%;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 14px 14px;
+  border: 1px solid #dfe3ea;
+  border-radius: ${theme.borderRadius.md};
   font-size: 1rem;
   font-family: inherit;
   appearance: none;
@@ -102,12 +102,12 @@ const Select = styled.select`
   &:focus {
     outline: none;
     border-color: ${theme.colors.primary};
-    box-shadow: 0 0 0 3px ${theme.colors.primary}22;
+    box-shadow: 0 0 0 4px ${theme.colors.primary}22;
   }
   
   &.error {
     border-color: #e74c3c;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+    box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.12);
   }
 `;
 
@@ -122,13 +122,13 @@ const ErrorMessage = styled.div`
 
 const SubmitButton = styled.button`
   width: 100%;
-  padding: 15px;
+  padding: 16px;
   background: ${theme.colors.primary};
-  color: ${theme.colors.black};
+  color: ${theme.colors.white};
   font-weight: 700;
   font-size: 1.1rem;
   border: none;
-  border-radius: 6px;
+  border-radius: ${theme.borderRadius.md};
   cursor: pointer;
   transition: all 0.3s;
   position: relative;
@@ -137,11 +137,12 @@ const SubmitButton = styled.button`
   justify-content: center;
   gap: 8px;
   overflow: hidden;
+  box-shadow: ${theme.shadows.md};
   
   &:hover {
-    background: #ffb733;
+    background: ${theme.colors.accent};
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
+    box-shadow: ${theme.shadows.lg};
   }
   
   &:disabled {
@@ -346,7 +347,7 @@ export default function LeadForm({ id, isPopup = false }) {
       
       try {
         // Send data to webhook
-        const webhookUrl = 'https://hook.us1.make.com/bpot7gsvvs91l12p8hzzlmsoyx6re4cb';
+        const webhookUrl = 'https://hook.us2.make.com/8pdntkmlt16it2b9clovktppenjghx7s';
         
         // Prepare the data to send (excluding honeypot fields)
         const dataToSend = {
@@ -357,7 +358,8 @@ export default function LeadForm({ id, isPopup = false }) {
           postalCode: formData.postalCode,
           language: document.documentElement.lang || 'en',
           timestamp: new Date().toISOString(),
-          source: window.location.href
+          source: window.location.href,
+          placement: isPopup ? 'popup' : 'inline'
         };
         
         // Send the data to the webhook

@@ -127,19 +127,17 @@ const FormPopup = ({ externalIsVisible, onClose }) => {
   const isVisible = externalIsVisible || autoIsVisible;
   
   useEffect(() => {
-    // Enregistrer le temps de début
-    const startTime = new Date().getTime();
-    console.log('FormPopup: Timer started at', new Date().toISOString());
-    
-    // Afficher le popup après exactement 15 secondes
+    // Do not auto-open popup if inline form has shown
+    let inlineShown = false;
+    const handler = () => { inlineShown = true; };
+    window.addEventListener('inlineFormShown', handler, { once: true });
     const timer = setTimeout(() => {
-      const endTime = new Date().getTime();
-      const elapsedTime = (endTime - startTime) / 1000;
-      console.log('FormPopup: Popup triggered after', elapsedTime, 'seconds');
-      setAutoIsVisible(true);
+      if (!inlineShown) setAutoIsVisible(true);
     }, 15000);
-    
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('inlineFormShown', handler);
+    };
   }, []);
   
   const closePopup = () => {
