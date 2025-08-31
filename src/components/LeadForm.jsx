@@ -386,6 +386,15 @@ export default function LeadForm({ id, isPopup = false }) {
           });
         }
         
+        // Google Ads conversion event
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'conversion', {
+            'send_to': 'AW-17520682426/NQ63CM7LiZEbELrLwaJB',
+            'value': 1.0,
+            'currency': 'CAD'
+          });
+        }
+        
         setIsSubmitted(true);
         setFormData({
           name: '',
