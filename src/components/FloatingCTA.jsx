@@ -36,7 +36,7 @@ const FloatingBar = styled.div`
   right: 0;
   background: linear-gradient(90deg, ${theme.colors.bgDark}, ${theme.colors.secondary});
   color: ${theme.colors.white};
-  padding: 15px 25px;
+  padding: 30px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -45,7 +45,18 @@ const FloatingBar = styled.div`
   transform: translateY(${props => (props.isVisible ? '0' : '-100%')});
   transition: ${theme.transitions.medium};
   animation: ${slideIn} 0.5s ease forwards;
-  border-bottom: 2px solid ${theme.colors.primary};
+  border-bottom: 4px solid ${theme.colors.primary};
+  
+  /* center logo positioning */
+  & img.cta-center-logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 200px;
+    opacity: 0.9;
+    pointer-events: none;
+  }
   
   @media (max-width: 768px) {
     padding: 12px 15px;
@@ -55,7 +66,7 @@ const FloatingBar = styled.div`
 `;
 
 const FloatingText = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   font-weight: 600;
   font-family: ${theme.fonts.heading};
   letter-spacing: 0.5px;
@@ -81,9 +92,9 @@ const FloatingButton = styled.button`
   color: ${theme.colors.white};
   border: none;
   border-radius: ${theme.borderRadius.md};
-  padding: 10px 20px;
+  padding: 16px 28px;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   cursor: pointer;
   transition: ${theme.transitions.medium};
   font-family: ${theme.fonts.heading};
@@ -127,7 +138,7 @@ const FloatingButton = styled.button`
 
 const FloatingCTA = ({ onButtonClick }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const { translations } = useLanguage();
+  const { translations, language } = useLanguage();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -145,8 +156,17 @@ const FloatingCTA = ({ onButtonClick }) => {
   
   return isVisible ? (
     <FloatingBar isVisible={isVisible}>
+      <img className="cta-center-logo" src="/navbar-logo.png" alt="logo" />
       <FloatingText>
-        {translations.headlineAddOn}
+        {language === 'en' ? (
+          <>
+            <span>Compare, save up to 30%*</span>
+            <br />
+            <span>and protect your roof with peace of mind</span>
+          </>
+        ) : (
+          translations.headlineAddOn
+        )}
       </FloatingText>
       <FloatingButton onClick={onButtonClick}>
         {translations.getQuotes}

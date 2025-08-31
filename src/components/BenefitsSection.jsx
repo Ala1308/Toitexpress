@@ -24,6 +24,17 @@ const SectionContainer = styled.section`
     background: linear-gradient(to right, ${theme.colors.primary}, ${theme.colors.accent}, ${theme.colors.primary});
     opacity: 0.7;
   }
+  
+  /* watermark logo */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('/toit-logo.png') no-repeat center 80px / 920px auto;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 1; /* overlay above cards so it isn't hidden */
+  }
 `;
 
 const SectionInner = styled.div`
@@ -32,6 +43,8 @@ const SectionInner = styled.div`
   opacity: 0;
   animation: ${fadeIn} 0.8s ease-out forwards;
   animation-delay: 0.2s;
+  position: relative;
+  z-index: 2;
 `;
 
 const SectionTitle = styled.h2`

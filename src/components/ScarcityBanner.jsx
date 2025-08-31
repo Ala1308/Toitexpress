@@ -39,6 +39,7 @@ const BannerContainer = styled.div`
     background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
     transform: translateX(-100%);
     animation: shine 3s infinite;
+    z-index: 0;
   }
   
   @keyframes shine {
@@ -54,6 +55,17 @@ const BannerContainer = styled.div`
   }
 `;
 
+const CenterLogo = styled.img`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 28px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+`;
+
 const BannerText = styled.p`
   margin: 0;
   font-size: 1.1rem;
@@ -63,6 +75,8 @@ const BannerText = styled.p`
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
+  position: relative;
+  z-index: 1;
 `;
 
 const ClockIcon = styled.div`
@@ -122,6 +136,7 @@ export default function ScarcityBanner() {
   
   return (
     <BannerContainer>
+      <CenterLogo src="/navbar-logo.png" alt="logo" />
       <ClockIcon>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
